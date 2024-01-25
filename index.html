@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style type="text/tailwindcss">
+    @layer utilities { .content-auto { content-visibility: auto; } }
+</style>
+
+<body>
+    <div class="container mx-auto dark:bg-white bg-gray-600 border-dashed border-4 border-white dark:border-black md:mx-auto md:mt-10 md:mb-10 md:p-15 p-5 dark:text-black text-white">
+        <div>
+
+            <span class='flex justify-center text-3xl'>Pendaftaran Pelatihan Mediatama Web Indonesia</span>
+            <hr class='border-2 mt-2' />
+
+            <span class='mt-10'>
+                Mediatama Web Indonesia merupakan perusahaan yang bergerak di bidang Teknologi Informasi berlokasi di Kota
+                Padang. Mediatama Web Indonesia menyediakan pelatihan komputer dan kursus pemograman. Mediatama Web Indonesia merupakan
+                salah satu perusahaan yang menyediakan pelatihan pemograman terbaik di Sumatera Barat.
+            </span>
+
+            <div class="mt-10">
+                <div class='grid'>
+                    <label htmlFor="Namalengkap">Nama Lengkap</label>
+                    <input type="text" id="nama" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='Masukan Nama Lengkap' />
+                </div>
+
+                <div class='grid mt-5'>
+                    <label htmlFor="nomorTelpon">Nomor Hp/Whatsapp</label>
+                    <input type="number" id="telpon" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='+62xxxxx' />
+                </div>
+
+                <div class='grid mt-5'>
+                    <label htmlFor="Email">Email</label>
+                    <input type="email" id="email" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='example@gmail.com' />
+                </div>
+
+                <div class='grid mt-5'>
+                    <label htmlFor="Alamat">Alamat Lengkap</label>
+                    <textarea id="alamat" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='Alamat'></textarea>
+                </div>
+
+                <div class='grid mt-5'>
+                    <label htmlFor="Jenis">Jenis Pelatihan</label>
+                    <select id="jenis" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
+                        <option value="">-SILAHKAN PILIH-</option>
+                        <option value="Regular">Regular</option>
+                        <option value="Private">Private</option>
+                    </select>
+                </div>
+
+                <div class="mt-5 flex items-center p-4 mb-4 text-sm text-red-500 rounded-lg bg-red-50 dark:bg-gray-600 dark:text-white" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-bold">Perhatian!</span> minimal jumlah Perserta 4 orang.
+                    </div>
+                </div>
+
+                <div class='grid mt-5'>
+                    <label htmlFor="nomorTelpon">Mengikuti Pelatihan</label>
+                    <select id="mengikuti" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
+                        <option value="">-SILAHKAN PILIH-</option>
+
+                    </select>
+                </div>
+
+                <div class='grid mt-5 mb-5'>
+                    <label htmlFor="nomorTelpon">Dapat Info Pelatihan Dari</label>
+                    <div class="mt-5 flex gap-4 justify-center">
+                        <div class="grid md:grid-cols-5 gap-3 grid-cols-2" id="isiradio">
+                        </div>
+                    </div>
+                </div>
+
+                <label class='mt-15'>Bukti Transfer *</label>
+                <div class="rounded-md border-dotted border-4 border-gray-400 mt-5 md:p-10 p-3">
+                    <span class='font-bold md:text-lg'>
+                        Silahkan Transfer Sebesar <span class='text-red-600'><span id="harga"></span></span> sesuai harga paket yang dipilih dan kirim ke rekening berikut:
+                    </span>
+                    <div class="md:flex grid md:gap-4 gap-2 mb-5">
+                        <div class='dark:hover:bg-white hover:text-black hover:bg-white mt-5 flex text-wrap border rounded-md p-3'>
+                            <img src="https://register.nazeateknologi.com/public//bri.svg" width="50px" alt='bri' />
+                            <span class="ml-3 ">
+                                5475-0101-3738-531 A/n Ferri Achmad Effindri
+                            </span>
+                        </div>
+                        <div class='dark:hover:bg-white hover:text-black hover:bg-white mt-5 flex border rounded-md p-3'>
+                            <img src="https://register.nazeateknologi.com/public/bca.svg" width="50px" alt='bri' />
+                            <span class='ml-3'>
+                                8565098884 A/n Mediatama Web Indonesia
+                            </span>
+                        </div>
+                    </div>
+
+                    <span class='mt-5'>
+                        Untuk informasi lebih lanjut bisa menghubungi <a class='hover:text-blue-600' target='blank'
+                            href='https://wa.me/+6282170214495'>082170214495</a> atau bisa langsung ke Kantor Nazea
+                        Teknologi.
+                        <div class="grid justify-center mt-6">
+                            <img src="https://register.nazeateknologi.com/public/nazea.png" width="140px"
+                                alt='nazea' />
+
+                            <p class='text-center'>Scan Me</p>
+
+                            <a class='text-center cursor-pointer p-2 mt-6 rounded-md text-white bg-blue-600 hover:bg-blue-400'
+                                href="https://maps.app.goo.gl/VkZpPk8ENABpmSEQA" target='blank'>Buka Map</a>
+                        </div>
+                    </span>
+                </div>
+
+                <div class='grid mt-5'>
+                    <input type='file' class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" />
+                </div>
+
+                <div class="flex justify-end">
+                    <button class='p-3 mt-5 rounded-md bg-blue-600 hover:bg-blue-400 text-white w-[30%]'>Kirim</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+
+        function formatRupiah(rupiah) {
+            let rupiahFormat = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+            }).format(rupiah);
+
+            document.getElementById('harga').innerHTML = rupiahFormat
+        }
+
+
+
+        var html = ""
+        const radio = ["Website", "Google", "Instagram", "Teman", "Lainya"]
+        $(document).ready(function() {
+            formatRupiah(1000)
+
+            for (var i = 0; i < radio.length; i++) {
+
+                html += "<div className='flex'>" +
+                    "<input type='radio' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
+                    "<span>" + radio[i] + "</span>" +
+                    "</div>"
+            }
+
+
+            $('#isiradio').html(html)
+        })
+    </script>
+</body>
+
+</html>
