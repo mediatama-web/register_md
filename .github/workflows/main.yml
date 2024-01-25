@@ -17,5 +17,4 @@ jobs:
       with:
         server: register.mediatamaweb.com
         username: ${{ secrets.ftp_username }}
-        password: ${{ secrets.ftp_password }}   
-        server-dir: /test
+        password: ${{ secrets.ftp_password }}  
