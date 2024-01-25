@@ -12,6 +12,6 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: register.mediatamaweb.com
-        username: gemafajar
+        username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}   
         server-dir: /
