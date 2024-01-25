@@ -14,4 +14,4 @@ jobs:
         server: register.mediatamaweb.com
         username: gemafajar
         password: ${{ secrets.ftp_password }}   
-        server-dir: /register_md
+        server-dir: /
