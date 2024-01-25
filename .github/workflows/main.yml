@@ -1,16 +1,17 @@
-name: Deploy to FTP
-on:
-    push:
-        branches:
-            - master
+on: push
+name: 🚀 Deploy website on push
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        steps:
-            - name: 📂 Sync files
-              uses: SamKirkland/FTP-Deploy-Action@4.0.0
-              with:
-                  server: ${{ secrets.ftp_hostname }}
-                  username: ${{ secrets.ftp_username }}
-                  password: ${{ secrets.ftp_password }}
-                  server-dir: /
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: register.mediatamaweb.com
+        username: gemafajar
+        password: ${{ secrets.ftp_password }}   
+        server-dir: /register_md
