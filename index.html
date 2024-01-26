@@ -48,14 +48,14 @@
 
                 <div class='grid mt-5'>
                     <label htmlFor="Jenis">Jenis Pelatihan</label>
-                    <select id="jenis" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
+                    <select id="jenis" onchange="getKelas(this.value)" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
                         <option value="">-SILAHKAN PILIH-</option>
                         <option value="Regular">Regular</option>
                         <option value="Private">Private</option>
                     </select>
                 </div>
 
-                <div class="mt-5 flex items-center p-4 mb-4 text-sm text-red-500 rounded-lg bg-red-50 dark:bg-gray-600 dark:text-white" role="alert">
+                <div id="alert" class="mt-5 flex items-center p-4 mb-4 text-sm text-red-500 rounded-lg bg-red-50 dark:bg-gray-600 dark:text-white" role="alert">
                     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
@@ -69,8 +69,7 @@
                 <div class='grid mt-5'>
                     <label htmlFor="nomorTelpon">Mengikuti Pelatihan</label>
                     <select id="mengikuti" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
-                        <option value="">-SILAHKAN PILIH-</option>
-
+                        
                     </select>
                 </div>
 
@@ -131,6 +130,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -152,11 +152,14 @@
             document.getElementById('harga').innerHTML = rupiahFormat
         }
 
-
-
         var html = ""
+        var option = "<option value=''>-SILAHKAN PILIH-</option>"
+
         const radio = ["Website", "Google", "Instagram", "Teman", "Lainya"]
         $(document).ready(function() {
+
+            $('#alert').hide()
+            $('#mengikuti').html(option)
             formatRupiah(1000)
 
             for (var i = 0; i < radio.length; i++) {
@@ -167,9 +170,29 @@
                     "</div>"
             }
 
-
             $('#isiradio').html(html)
         })
+
+
+        function getKelas(e) {
+            if (e == 'Regular') {
+                $('#alert').show()
+            } else {
+                $('#alert').hide()
+            }
+            $('#mengikuti').html("")
+            axios.get("https://booking.mediatamaweb.com/api/get-kelas/" + e)
+                .then(res => {
+                    console.log(res.data.kelas);
+                    for (var i = 0; i < res.data.kelas.length; i++) {
+                        option += "<option value='" + res.data.kelas[i].id + "'>" + res.data.kelas[i].materi + "</option>"
+                    }
+                    $('#mengikuti').html(option)
+                })
+                .then(err => {
+                    console.log(err);
+                })
+        }
     </script>
 </body>
 
