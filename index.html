@@ -28,41 +28,41 @@
 
             <div class="mt-10">
                 <div class='grid'>
-                    <label htmlFor="Namalengkap">Nama Lengkap</label>
+                    <label htmlFor="Namalengkap">Nama Lengkap <span class="text-red-600" id="error_nama"></span></label>
                     <input type="text" id="nama" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='Masukan Nama Lengkap' />
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="nomorTelpon">Nomor Hp/Whatsapp</label>
+                    <label htmlFor="nomorTelpon">Nomor Hp/Whatsapp <span class="text-red-600" id="error_telpon"></span></label>
                     <input type="number" id="telpon" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='+62xxxxx' />
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="Email">Email</label>
+                    <label htmlFor="Email">Email <span class="text-red-600" id="error_email"></span></label>
                     <input type="email" id="email" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='example@gmail.com' />
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="Alamat">Alamat Lengkap</label>
+                    <label htmlFor="Alamat">Alamat Lengkap <span class="text-red-600" id="error_alamat"></span></label>
                     <textarea id="alamat" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='Alamat'></textarea>
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="nomorTelpon">Mengikuti Pelatihan</label>
+                    <label htmlFor="nomorTelpon">Mengikuti Pelatihan <span class="text-red-600" id="error_mengikuti"></span></label>
                     <select id="mengikuti" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
                         
                     </select>
                 </div>
 
                 <div class='grid mt-5 mb-5'>
-                    <label htmlFor="nomorTelpon">Dapat Info Pelatihan Dari</label>
+                    <label htmlFor="nomorTelpon">Dapat Info Pelatihan Dari <span class="text-red-600" id="error_info"></span></label>
                     <div class="mt-5 flex gap-4 justify-center">
                         <div class="grid md:grid-cols-5 gap-3 grid-cols-2" id="isiradio">
                         </div>
                     </div>
                 </div>
 
-                <label class='mt-15'>Bukti Transfer *</label>
+                <label class='mt-15'>Bukti Transfer <span class="text-red-600" id="error_foto"></span></label>
                 <div class="rounded-md border-dotted border-4 border-gray-400 mt-5 md:p-10 p-3">
                     <span class='font-bold md:text-lg'>
                         Silahkan Transfer Sebesar <span class='text-red-600'><span id="harga"></span></span> sesuai harga paket yang dipilih dan kirim ke rekening berikut:
@@ -99,11 +99,11 @@
                 </div>
 
                 <div class='grid mt-5'>
-                    <input type='file' class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" />
+                    <input type='file' id="foto" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" />
                 </div>
 
                 <div class="flex justify-end">
-                    <button class='p-3 mt-5 rounded-md bg-blue-600 hover:bg-blue-400 text-white w-[30%]'>Kirim</button>
+                    <button type="button" onclick="kirim()" class='p-3 mt-5 rounded-md bg-blue-600 hover:bg-blue-400 text-white w-[30%]'>Kirim</button>
                 </div>
 
             </div>
@@ -147,7 +147,7 @@
             for (var i = 0; i < radio.length; i++) {
 
                 html += "<div className='flex'>" +
-                    "<input type='radio' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
+                    "<input type='radio' id='radio' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
                     "<span>" + radio[i] + "</span>" +
                     "</div>"
             }
@@ -175,6 +175,55 @@
                 .then(err => {
                     console.log(err);
                 })
+        }
+
+        var errors = {}; 
+
+        var nama = $('#nama').val()
+        var alamat = $('#alamat').val()
+        var telpon = $('#telpon').val()
+        var email = $('#email').val()
+        var mengikuti = $('#mengikuti').val()
+        var foto = $('#foto').val()
+        var info = $('#info').val()
+
+        function validateForm() { 
+            
+            if (nama == "") { 
+                $('#error_nama').html('* Wajib Di Isi.'); 
+            } 
+
+            if (telpon == "") { 
+                $('#error_telpon').html('* Wajib Di Isi.'); 
+            } 
+
+            if (info == "") { 
+                $('#error_info').html('* Wajib Di Isi.'); 
+            } 
+
+            if (alamat == "") { 
+                $('#error_alamat').html('* Wajib Di Isi.'); 
+            } 
+
+            if (foto == "") { 
+                $('#error_foto').html('* Wajib Di Isi.'); 
+            } 
+
+            if (mengikuti == null) { 
+                $('#error_mengikuti').html('* Wajib Di Isi.'); 
+            } 
+
+            if (email == "") { 
+                $('#error_email').html('* Wajib Di Isi.'); 
+            } else if (!/\S+@\S+\.\S+/.test(email)) { 
+                $('#error_email').html('* Tidak Valid.'); 
+            } 
+
+        }; 
+
+        function kirim(){
+            validateForm()
+            console.log(mengikuti);
         }
     </script>
 </body>
