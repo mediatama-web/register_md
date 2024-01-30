@@ -147,19 +147,12 @@
             for (var i = 0; i < radio.length; i++) {
 
                 html += "<div className='flex'>" +
-                    "<input type='radio' id='radio' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
+                    "<input type='radio' onclick='getvalueRadio(this)' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
                     "<span>" + radio[i] + "</span>" +
                     "</div>"
             }
 
             $('#isiradio').html(html)
-        })
-
-        $('#mengikuti').change(function() {
-            var nilaiOption = $('#mengikuti').val()
-            var nilai = nilaiOption.split(",")
-            formatRupiah(nilai[1])
-            console.log(nilai[1]);
         })
 
         function getKelas() {
@@ -177,53 +170,123 @@
                 })
         }
 
+        
         var errors = {}; 
+        var isFormValid = false
+        
+        var nama = null
+        var alamat = null
+        var telpon = null
+        var email = null
+        var mengikuti = null
+        var foto = null
+        var info = null
+        var id_kelas = null
 
-        var nama = $('#nama').val()
-        var alamat = $('#alamat').val()
-        var telpon = $('#telpon').val()
-        var email = $('#email').val()
-        var mengikuti = $('#mengikuti').val()
-        var foto = $('#foto').val()
-        var info = $('#info').val()
+        function getvalueRadio(isi){
+            info = isi.value
+        }
+
+        
+        $('#mengikuti').change(function() {
+            var nilaiOption = $('#mengikuti').val()
+            var nilai = nilaiOption.split(",")
+            formatRupiah(nilai[1])
+            id_kelas = nilai[0];
+        })
 
         function validateForm() { 
+            errors = {}; 
+
+            nama = $('#nama').val()
+            alamat = $('#alamat').val()
+            telpon = $('#telpon').val()
+            email = $('#email').val()
+            mengikuti = $('#mengikuti').val()
+            foto = $('#foto').val()
             
+            $('#error_nama').html("")
+            $('#error_telpon').html("")
+            $('#error_info').html("")
+            $('#error_alamat').html("")
+            $('#error_foto').html("")
+            $('#error_mengikuti').html("")
+            $('#error_email').html("")
+
             if (nama == "") { 
+                errors.nama = true
                 $('#error_nama').html('* Wajib Di Isi.'); 
-            } 
+            }
 
             if (telpon == "") { 
+                errors.telpon = true
+                console.log(telpon);
                 $('#error_telpon').html('* Wajib Di Isi.'); 
             } 
 
-            if (info == "") { 
+            if (info == null) { 
+                errors.info = true
                 $('#error_info').html('* Wajib Di Isi.'); 
             } 
 
             if (alamat == "") { 
+                errors.alamat = true
                 $('#error_alamat').html('* Wajib Di Isi.'); 
             } 
 
             if (foto == "") { 
+                errors.foto = true
                 $('#error_foto').html('* Wajib Di Isi.'); 
             } 
 
-            if (mengikuti == null) { 
+            if (mengikuti == "") { 
+                errors.mengikuti = true
                 $('#error_mengikuti').html('* Wajib Di Isi.'); 
             } 
 
-            if (email == "") { 
+            if (email == null) { 
+                errors.email = true
                 $('#error_email').html('* Wajib Di Isi.'); 
             } else if (!/\S+@\S+\.\S+/.test(email)) { 
+                errors.email = true
                 $('#error_email').html('* Tidak Valid.'); 
             } 
+
+            if(Object.keys(errors).length === 0){
+                isFormValid = false
+            }else{
+                isFormValid = true
+            }
 
         }; 
 
         function kirim(){
             validateForm()
-            console.log(mengikuti);
+            if(isFormValid == false){
+
+                var formData = new FormData();
+                var imagefile = document.querySelector('#foto');
+
+                formData.append("bukti_transfer", imagefile.files[0]);
+                formData.append("nama_pengguna", nama);
+                formData.append("no_telpon", telpon);
+                formData.append("alamat", alamat);
+                formData.append("email", email);
+                formData.append("info", info);
+                formData.append("id_kelas", id_kelas);
+                formData.append("mengikuti", mengikuti);
+
+                axios.post("http://192.168.100.47:8000/api/daftar",formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((res) => {
+                    window.loaction.reload()
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            }
         }
     </script>
 </body>
