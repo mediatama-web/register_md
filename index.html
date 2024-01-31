@@ -275,6 +275,7 @@
                 formData.append("info", info);
                 formData.append("id_kelas", id_kelas);
                 formData.append("mengikuti", mengikuti);
+                formData.append("lokasi", "Mediatama Web");
 
                 axios.post("https://booking.mediatamaweb.com/api/daftar", formData, {
                         headers: {
