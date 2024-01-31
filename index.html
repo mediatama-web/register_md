@@ -28,41 +28,41 @@
 
             <div class="mt-10">
                 <div class='grid'>
-                    <label htmlFor="Namalengkap">Nama Lengkap</label>
+                    <label htmlFor="Namalengkap">Nama Lengkap <span class="text-red-600" id="error_nama"></span></label>
                     <input type="text" id="nama" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='Masukan Nama Lengkap' />
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="nomorTelpon">Nomor Hp/Whatsapp</label>
+                    <label htmlFor="nomorTelpon">Nomor Hp/Whatsapp <span class="text-red-600" id="error_telpon"></span></label>
                     <input type="number" id="telpon" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='+62xxxxx' />
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="Email">Email</label>
+                    <label htmlFor="Email">Email <span class="text-red-600" id="error_email"></span></label>
                     <input type="email" id="email" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='example@gmail.com' />
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="Alamat">Alamat Lengkap</label>
+                    <label htmlFor="Alamat">Alamat Lengkap <span class="text-red-600" id="error_alamat"></span></label>
                     <textarea id="alamat" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" placeholder='Alamat'></textarea>
                 </div>
 
                 <div class='grid mt-5'>
-                    <label htmlFor="nomorTelpon">Mengikuti Pelatihan</label>
+                    <label htmlFor="nomorTelpon">Mengikuti Pelatihan <span class="text-red-600" id="error_mengikuti"></span></label>
                     <select id="mengikuti" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600 text-black">
                         
                     </select>
                 </div>
 
                 <div class='grid mt-5 mb-5'>
-                    <label htmlFor="nomorTelpon">Dapat Info Pelatihan Dari</label>
+                    <label htmlFor="nomorTelpon">Dapat Info Pelatihan Dari <span class="text-red-600" id="error_info"></span></label>
                     <div class="mt-5 flex gap-4 justify-center">
                         <div class="grid md:grid-cols-5 gap-3 grid-cols-2" id="isiradio">
                         </div>
                     </div>
                 </div>
 
-                <label class='mt-15'>Bukti Transfer *</label>
+                <label class='mt-15'>Bukti Transfer <span class="text-red-600" id="error_foto"></span></label>
                 <div class="rounded-md border-dotted border-4 border-gray-400 mt-5 md:p-10 p-3">
                     <span class='font-bold md:text-lg'>
                         Silahkan Transfer Sebesar <span class='text-red-600'><span id="harga"></span></span> sesuai harga paket yang dipilih dan kirim ke rekening berikut:
@@ -99,11 +99,11 @@
                 </div>
 
                 <div class='grid mt-5'>
-                    <input type='file' class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" />
+                    <input type='file' id="foto" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" />
                 </div>
 
                 <div class="flex justify-end">
-                    <button class='p-3 mt-5 rounded-md bg-blue-600 hover:bg-blue-400 text-white w-[30%]'>Kirim</button>
+                    <button type="button" onclick="kirim()" class='p-3 mt-5 rounded-md bg-blue-600 hover:bg-blue-400 text-white w-[30%]'>Kirim</button>
                 </div>
 
             </div>
@@ -147,19 +147,12 @@
             for (var i = 0; i < radio.length; i++) {
 
                 html += "<div className='flex'>" +
-                    "<input type='radio' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
+                    "<input type='radio' onclick='getvalueRadio(this)' value='" + radio[i] + "' name='radio' class='w-6 h-6 mr-2 ml-3' />" +
                     "<span>" + radio[i] + "</span>" +
                     "</div>"
             }
 
             $('#isiradio').html(html)
-        })
-
-        $('#mengikuti').change(function() {
-            var nilaiOption = $('#mengikuti').val()
-            var nilai = nilaiOption.split(",")
-            formatRupiah(nilai[1])
-            console.log(nilai[1]);
         })
 
         function getKelas() {
@@ -175,6 +168,125 @@
                 .then(err => {
                     console.log(err);
                 })
+        }
+
+        
+        var errors = {}; 
+        var isFormValid = false
+        
+        var nama = null
+        var alamat = null
+        var telpon = null
+        var email = null
+        var mengikuti = null
+        var foto = null
+        var info = null
+        var id_kelas = null
+
+        function getvalueRadio(isi){
+            info = isi.value
+        }
+
+        
+        $('#mengikuti').change(function() {
+            var nilaiOption = $('#mengikuti').val()
+            var nilai = nilaiOption.split(",")
+            formatRupiah(nilai[1])
+            id_kelas = nilai[0];
+        })
+
+        function validateForm() { 
+            errors = {}; 
+
+            nama = $('#nama').val()
+            alamat = $('#alamat').val()
+            telpon = $('#telpon').val()
+            email = $('#email').val()
+            mengikuti = $('#mengikuti').val()
+            foto = $('#foto').val()
+            
+            $('#error_nama').html("")
+            $('#error_telpon').html("")
+            $('#error_info').html("")
+            $('#error_alamat').html("")
+            $('#error_foto').html("")
+            $('#error_mengikuti').html("")
+            $('#error_email').html("")
+
+            if (nama == "") { 
+                errors.nama = true
+                $('#error_nama').html('* Wajib Di Isi.'); 
+            }
+
+            if (telpon == "") { 
+                errors.telpon = true
+                console.log(telpon);
+                $('#error_telpon').html('* Wajib Di Isi.'); 
+            } 
+
+            if (info == null) { 
+                errors.info = true
+                $('#error_info').html('* Wajib Di Isi.'); 
+            } 
+
+            if (alamat == "") { 
+                errors.alamat = true
+                $('#error_alamat').html('* Wajib Di Isi.'); 
+            } 
+
+            if (foto == "") { 
+                errors.foto = true
+                $('#error_foto').html('* Wajib Di Isi.'); 
+            } 
+
+            if (mengikuti == "") { 
+                errors.mengikuti = true
+                $('#error_mengikuti').html('* Wajib Di Isi.'); 
+            } 
+
+            if (email == null) { 
+                errors.email = true
+                $('#error_email').html('* Wajib Di Isi.'); 
+            } else if (!/\S+@\S+\.\S+/.test(email)) { 
+                errors.email = true
+                $('#error_email').html('* Tidak Valid.'); 
+            } 
+
+            if(Object.keys(errors).length === 0){
+                isFormValid = false
+            }else{
+                isFormValid = true
+            }
+
+        }; 
+
+        function kirim(){
+            validateForm()
+            if(isFormValid == false){
+
+                var formData = new FormData();
+                var imagefile = document.querySelector('#foto');
+
+                formData.append("bukti_transfer", imagefile.files[0]);
+                formData.append("nama_pengguna", nama);
+                formData.append("no_telpon", telpon);
+                formData.append("alamat", alamat);
+                formData.append("email", email);
+                formData.append("info", info);
+                formData.append("id_kelas", id_kelas);
+                formData.append("mengikuti", mengikuti);
+
+                axios.post("https://booking.mediatamaweb.com/api/daftar",formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((res) => {
+                    window.loaction.reload()
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            }
         }
     </script>
 </body>
