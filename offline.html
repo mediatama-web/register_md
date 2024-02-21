@@ -62,46 +62,6 @@
                     </div>
                 </div>
 
-                <label class='mt-15'>Bukti Transfer <span class="text-red-600" id="error_foto"></span></label>
-                <div class="rounded-md border-dotted border-4 border-gray-400 mt-5 md:p-10 p-3">
-                    <span class='font-bold md:text-lg'>
-                        Silahkan Transfer Sebesar <span class='text-red-600'><span id="harga"></span></span> sesuai harga paket yang dipilih dan kirim ke rekening berikut:
-                    </span>
-                    <div class="md:flex grid md:gap-4 gap-2 mb-5">
-                        <div class='dark:hover:bg-white hover:text-black hover:bg-white mt-5 flex text-wrap border rounded-md p-3'>
-                            <img src="https://register.nazeateknologi.com/public//bri.svg" width="50px" alt='bri' />
-                            <span class="ml-3 ">
-                                5475-0101-3738-531 A/n Ferri Achmad Effindri
-                            </span>
-                        </div>
-                        <div class='dark:hover:bg-white hover:text-black hover:bg-white mt-5 flex border rounded-md p-3'>
-                            <img src="https://register.nazeateknologi.com/public/bca.svg" width="50px" alt='bri' />
-                            <span class='ml-3'>
-                                8565098884 A/n Mediatama Web Indonesia
-                            </span>
-                        </div>
-                    </div>
-
-                    <span class='mt-5'>
-                        Untuk informasi lebih lanjut bisa menghubungi <a class='hover:text-blue-600' target='blank'
-                            href='https://wa.me/+6282170214495'>082170214495</a> atau bisa langsung ke Kantor Nazea
-                        Teknologi.
-                        <div class="grid justify-center mt-6">
-                            <img src="mediatamaweb.png" width="140px"
-                                alt='Mediatamaweb' />
-
-                            <p class='text-center'>Scan Me</p>
-
-                            <a class='text-center cursor-pointer p-2 mt-6 rounded-md text-white bg-blue-600 hover:bg-blue-400'
-                                href="https://maps.app.goo.gl/ffCYTGd6MwNaTdoNA" target='blank'>Buka Map</a>
-                        </div>
-                    </span>
-                </div>
-
-                <div class='grid mt-5'>
-                    <input type='file' id="foto" class="rounded-md border p-3 mt-2 shadow-md focus:outline-blue-600" />
-                </div>
-
                 <div class="flex justify-end">
                     <button type="button" onclick="kirim()" class='p-3 mt-5 rounded-md bg-blue-600 hover:bg-blue-400 text-white w-[30%]'>Kirim</button>
                 </div>
@@ -124,15 +84,6 @@
             }
         }
 
-        function formatRupiah(rupiah) {
-            let rupiahFormat = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-            }).format(rupiah);
-
-            document.getElementById('harga').innerHTML = rupiahFormat
-        }
-
         var html = ""
         var option = "<option value=''>-SILAHKAN PILIH-</option>"
 
@@ -141,7 +92,6 @@
 
             $('#alert').hide()
             $('#mengikuti').html(option)
-            formatRupiah(0)
             getKelas()
 
             for (var i = 0; i < radio.length; i++) {
@@ -161,7 +111,7 @@
             axios.get("https://booking.mediatamaweb.com/api/get-kelas/Private")
                 .then(res => {
                     for (var i = 0; i < res.data.kelas.length; i++) {
-                        option += "<option value='" + res.data.kelas[i].id + "," + res.data.kelas[i].harga + "'>" + res.data.kelas[i].materi + "</option>"
+                        option += "<option value='" + res.data.kelas[i].id + "'>" + res.data.kelas[i].materi + "</option>"
                     }
                     $('#mengikuti').html(option)
                 })
@@ -179,7 +129,6 @@
         var telpon = null
         var email = null
         var mengikuti = null
-        var foto = null
         var info = null
         var id_kelas = null
 
@@ -190,9 +139,6 @@
         
         $('#mengikuti').change(function() {
             var nilaiOption = $('#mengikuti').val()
-            var nilai = nilaiOption.split(",")
-            formatRupiah(nilai[1])
-            id_kelas = nilai[0];
         })
 
         function validateForm() { 
@@ -203,13 +149,11 @@
             telpon = $('#telpon').val()
             email = $('#email').val()
             mengikuti = $('#mengikuti').val()
-            foto = $('#foto').val()
             
             $('#error_nama').html("")
             $('#error_telpon').html("")
             $('#error_info').html("")
             $('#error_alamat').html("")
-            $('#error_foto').html("")
             $('#error_mengikuti').html("")
             $('#error_email').html("")
 
@@ -220,7 +164,6 @@
 
             if (telpon == "") { 
                 errors.telpon = true
-                console.log(telpon);
                 $('#error_telpon').html('* Wajib Di Isi.'); 
             } 
 
@@ -232,11 +175,6 @@
             if (alamat == "") { 
                 errors.alamat = true
                 $('#error_alamat').html('* Wajib Di Isi.'); 
-            } 
-
-            if (foto == "") { 
-                errors.foto = true
-                $('#error_foto').html('* Wajib Di Isi.'); 
             } 
 
             if (mengikuti == "") { 
@@ -265,9 +203,7 @@
             if(isFormValid == false){
 
                 var formData = new FormData();
-                var imagefile = document.querySelector('#foto');
 
-                formData.append("bukti_transfer", imagefile.files[0]);
                 formData.append("nama_pengguna", nama);
                 formData.append("no_telpon", telpon);
                 formData.append("alamat", alamat);
