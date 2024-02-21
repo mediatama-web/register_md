@@ -84,8 +84,8 @@
 
                     <span class='mt-5'>
                         Untuk informasi lebih lanjut bisa menghubungi <a class='hover:text-blue-600' target='blank'
-                            href='https://wa.me/+6282170214495'>082170214495</a> atau bisa langsung ke Kantor Nazea
-                        Teknologi.
+                            href='https://wa.me/+6282170214495'>082170214495</a> atau bisa langsung ke Mediatama Web Indonesia
+                        .
                         <div class="grid justify-center mt-6">
                             <img src="mediatamaweb.png" width="140px"
                                 alt='Mediatamaweb' />
@@ -170,10 +170,10 @@
                 })
         }
 
-        
-        var errors = {}; 
+
+        var errors = {};
         var isFormValid = false
-        
+
         var nama = null
         var alamat = null
         var telpon = null
@@ -183,11 +183,11 @@
         var info = null
         var id_kelas = null
 
-        function getvalueRadio(isi){
+        function getvalueRadio(isi) {
             info = isi.value
         }
 
-        
+
         $('#mengikuti').change(function() {
             var nilaiOption = $('#mengikuti').val()
             var nilai = nilaiOption.split(",")
@@ -195,8 +195,8 @@
             id_kelas = nilai[0];
         })
 
-        function validateForm() { 
-            errors = {}; 
+        function validateForm() {
+            errors = {};
 
             nama = $('#nama').val()
             alamat = $('#alamat').val()
@@ -204,7 +204,7 @@
             email = $('#email').val()
             mengikuti = $('#mengikuti').val()
             foto = $('#foto').val()
-            
+
             $('#error_nama').html("")
             $('#error_telpon').html("")
             $('#error_info').html("")
@@ -213,56 +213,56 @@
             $('#error_mengikuti').html("")
             $('#error_email').html("")
 
-            if (nama == "") { 
+            if (nama == "") {
                 errors.nama = true
-                $('#error_nama').html('* Wajib Di Isi.'); 
+                $('#error_nama').html('* Wajib Di Isi.');
             }
 
-            if (telpon == "") { 
+            if (telpon == "") {
                 errors.telpon = true
                 console.log(telpon);
-                $('#error_telpon').html('* Wajib Di Isi.'); 
-            } 
+                $('#error_telpon').html('* Wajib Di Isi.');
+            }
 
-            if (info == null) { 
+            if (info == null) {
                 errors.info = true
-                $('#error_info').html('* Wajib Di Isi.'); 
-            } 
+                $('#error_info').html('* Wajib Di Isi.');
+            }
 
-            if (alamat == "") { 
+            if (alamat == "") {
                 errors.alamat = true
-                $('#error_alamat').html('* Wajib Di Isi.'); 
-            } 
+                $('#error_alamat').html('* Wajib Di Isi.');
+            }
 
-            if (foto == "") { 
+            if (foto == "") {
                 errors.foto = true
-                $('#error_foto').html('* Wajib Di Isi.'); 
-            } 
+                $('#error_foto').html('* Wajib Di Isi.');
+            }
 
-            if (mengikuti == "") { 
+            if (mengikuti == "") {
                 errors.mengikuti = true
-                $('#error_mengikuti').html('* Wajib Di Isi.'); 
-            } 
+                $('#error_mengikuti').html('* Wajib Di Isi.');
+            }
 
-            if (email == null) { 
+            if (email == null) {
                 errors.email = true
-                $('#error_email').html('* Wajib Di Isi.'); 
-            } else if (!/\S+@\S+\.\S+/.test(email)) { 
+                $('#error_email').html('* Wajib Di Isi.');
+            } else if (!/\S+@\S+\.\S+/.test(email)) {
                 errors.email = true
-                $('#error_email').html('* Tidak Valid.'); 
-            } 
+                $('#error_email').html('* Tidak Valid.');
+            }
 
-            if(Object.keys(errors).length === 0){
+            if (Object.keys(errors).length === 0) {
                 isFormValid = false
-            }else{
+            } else {
                 isFormValid = true
             }
 
-        }; 
+        };
 
-        function kirim(){
+        function kirim() {
             validateForm()
-            if(isFormValid == false){
+            if (isFormValid == false) {
 
                 var formData = new FormData();
                 var imagefile = document.querySelector('#foto');
@@ -277,16 +277,16 @@
                 formData.append("mengikuti", mengikuti);
                 formData.append("lokasi", "Mediatama Web");
 
-                axios.post("https://booking.mediatamaweb.com/api/daftar",formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then((res) => {
-                    window.loaction.reload()
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+                axios.post("https://booking.mediatamaweb.com/api/daftar", formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then((res) => {
+                        window.loaction.reload()
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
             }
         }
     </script>
