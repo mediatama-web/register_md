@@ -280,15 +280,15 @@
                 formData.append("lokasi", "Mediatama Web");
 
                 axios.post("https://booking.mediatamaweb.com/api/daftar", formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }).then((res) => {
-                        window.loaction.reload()
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((res) => {
+                    window.location.reload()
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
             }
         }
     </script>
