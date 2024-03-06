@@ -8,7 +8,9 @@
     <meta name="description" content="Mediatama Web merupakan lembaga pelatihan berfokus ke Teknologi Informasi yang telah terakreditasi Kementerian ketenagakerjaan.">
     <title>Form Pendaftaran Pelatihan Mediatama Web</title>
 </head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 <style type="text/tailwindcss">
     @layer utilities { .content-auto { content-visibility: auto; } }
@@ -258,6 +260,13 @@
                 isFormValid = false
             } else {
                 isFormValid = true
+                Toastify({
+                    text: "Pastikan semua data telah terisi!",
+                    className: "info",
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    }
+                }).showToast();
             }
 
         };
