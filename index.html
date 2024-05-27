@@ -224,12 +224,13 @@
             if (nama == "") {
                 errors.nama = true
                 $('#error_nama').html('* Wajib Di Isi.');
+                $('#nama').focus()
             }
 
             if (telpon == "") {
                 errors.telpon = true
-                console.log(telpon);
                 $('#error_telpon').html('* Wajib Di Isi.');
+                $('#telpon').focus()
             }
 
             if (info == null) {
@@ -240,24 +241,29 @@
             if (alamat == "") {
                 errors.alamat = true
                 $('#error_alamat').html('* Wajib Di Isi.');
+                $('#alamat').focus()
             }
 
             if (foto == "") {
                 errors.foto = true
                 $('#error_foto').html('* Wajib Di Isi.');
+                $('#foto').focus()
             }
 
             if (mengikuti == "") {
                 errors.mengikuti = true
                 $('#error_mengikuti').html('* Wajib Di Isi.');
+                $('#mengikuti').focus()
             }
 
             if (email == null) {
                 errors.email = true
                 $('#error_email').html('* Wajib Di Isi.');
+                $('#email').focus()
             } else if (!/\S+@\S+\.\S+/.test(email)) {
                 errors.email = true
                 $('#error_email').html('* Tidak Valid.');
+                $('#email').focus()
             }
 
             if (Object.keys(errors).length === 0) {
@@ -298,7 +304,7 @@
                     }
                 }).then((res) => {
                     if(res.data.code === 200){
-                        window.location.reload()
+                        window.location='success.html'
                     }else{
                         if(res.data.pesan){
                             alert(res.data.pesan)
