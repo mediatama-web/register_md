@@ -225,45 +225,53 @@
                 errors.nama = true
                 $('#error_nama').html('* Wajib Di Isi.');
                 $('#nama').focus()
+                alert("nama tidak boleh kosong")
             }
 
             if (telpon == "") {
                 errors.telpon = true
                 $('#error_telpon').html('* Wajib Di Isi.');
                 $('#telpon').focus()
+                alert("Nomor Telpon tidak boleh kosong")
             }
 
             if (info == null) {
                 errors.info = true
                 $('#error_info').html('* Wajib Di Isi.');
+                alert("info tidak boleh kosong")
             }
 
             if (alamat == "") {
                 errors.alamat = true
                 $('#error_alamat').html('* Wajib Di Isi.');
                 $('#alamat').focus()
+                alert("Alamat tidak boleh kosong")
             }
 
             if (foto == "") {
                 errors.foto = true
                 $('#error_foto').html('* Wajib Di Isi.');
                 $('#foto').focus()
+                alert("Foto Transaksi tidak boleh kosong")
             }
 
             if (mengikuti == "") {
                 errors.mengikuti = true
                 $('#error_mengikuti').html('* Wajib Di Isi.');
                 $('#mengikuti').focus()
+                alert("Paket Pelatihan tidak boleh kosong")
             }
 
             if (email == null) {
                 errors.email = true
                 $('#error_email').html('* Wajib Di Isi.');
                 $('#email').focus()
+                alert("Email tidak boleh kosong")
             } else if (!/\S+@\S+\.\S+/.test(email)) {
                 errors.email = true
                 $('#error_email').html('* Tidak Valid.');
                 $('#email').focus()
+                alert("Format Email Salah")
             }
 
             if (Object.keys(errors).length === 0) {
